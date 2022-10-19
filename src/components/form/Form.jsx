@@ -2,22 +2,27 @@ import { useState } from 'react';
 import List from '../list/List';
 import FormStyle from './form.module.css';
 
-const Form = () => {
-    const [formValues, setFormValues] = useState({
-        task: '',
-        date: '',
-    });
-    const { task, date } = formValues;
-    const taskInput = (e) => {
-        setFormValues({ ...formValues, [e.target.id]: e.target.value });
+const Form = ({ task, date, taskInput }) => {
+    let index = 0;
+    //array which we push tasks to and save in localStorage
+    const taskArray = [];
+    const submit = (e, task, date) => {
+        e.preventDefault();
 
         console.log(task);
-        console.log(date);
+        taskToLocalStorage(task, date);
     };
-    const submit = (e) => {
-        e.preventDefault();
+    const taskToLocalStorage = (task, date) => {
+        const taskItem = {
+            index: index,
+            taskInput: task,
+            dateInput: date,
+        };
+        taskArray.push(taskItem);
+        localStorage.setItem(`taskArray`, JSON.stringify(taskArray));
+        index++;
     };
-
+    console.log(localStorage);
     return (
         <div className={FormStyle.formWrapper}>
             <form>
@@ -48,7 +53,6 @@ const Form = () => {
                     Save Task
                 </button>
             </form>
-            <List task={task} date={date} />
         </div>
     );
 };

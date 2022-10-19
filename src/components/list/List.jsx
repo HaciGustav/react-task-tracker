@@ -1,5 +1,4 @@
 import ListStyle from './list.module.css';
-import data from '../helper/data';
 
 const List = ({ task, date }) => {
     return (
@@ -10,7 +9,6 @@ const List = ({ task, date }) => {
                     <p>{date}</p>
                 </li>
             </ul>
-            ;
         </div>
     );
 };
